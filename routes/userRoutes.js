@@ -27,7 +27,6 @@ router.post("/", registerUser);
 
 // Auth User
 router.post("/login", authUser);
-export default router;
 
 // Get user profile
 router.get("/profile", protect, getUserProfile);
@@ -70,3 +69,5 @@ router.delete(
 
 // Get User Avatar
 router.get("/:id/avatar", getAvatar, errorHandler);
+
+export default router;

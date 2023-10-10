@@ -5,6 +5,7 @@ import connectDB from "./config/db.js";
 import morgan from "morgan";
 
 import userRoutes from "./routes/userRoutes.js";
+import authorRoutes from "./routes/authorRoutes.js";
 // import authorRoutes from "./routes/authorRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
@@ -26,7 +27,7 @@ if (process.env.NODE_ENV === "development") {
 app.use(express.json());
 
 app.use("/api/users", userRoutes);
-// app.use("/api/authors", authorRoutes);
+app.use("/api/authors", authorRoutes);
 
 // Error Handling middlewares
 app.use(notFound, errorHandler);
