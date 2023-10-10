@@ -53,7 +53,15 @@ You should have node.js and npm installed on your computer, Regarding MongoDB, w
    npm install
    ```
 3. Create the environment variables file ``.env`` file in your project directory. The environment variables are simple ``Node_ENV = development`` ``PORT = 5000`` ``MONGO_URI = your mongo urI`` ``JWT_SECRET=mysecret``.
-4. After adding these variables, head to the terminal and run
+4. After adding these variables, head to the terminal and seed the data into the database using this command
+   ```sh
+       npm run data:import
+   ```
+   To destroy all data, use this command
+   ```sh
+   npm run data:destroy
+   ```
+6. Then run the application using this command
    ```sh
    npm start
    ```
