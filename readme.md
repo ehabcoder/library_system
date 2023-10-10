@@ -81,9 +81,9 @@ Also, you can find the documentation for the API endpoints created with ``Postma
 ### Future Ideas
 Please keep in mind that this project was created in just 8 hours. If I had enough time I would have added these things:
 1. Some ``automated tests``.
-2. Send emails so we can send welcome messages to new users and send tokens to users to let them change their passwords if they forget them.
+2. ``Send emails`` so we can send welcome messages to new users and send tokens to users to let them change their passwords if they forget them.
 3. ``Reviews`` for the Authors and the Book.
 4. Implement ``data caching`` to improve the performance of reading operations.
-5. I don't know how to use Docker for setting up the development environment, but it's in my plan to learn it. The next step after mastering GraphQL is to start reading and learning about Docker and Kubernetes. I tried to learn it before but there were some priorities that prevented me from learning it.
+5. I don't know how to use ``Docker`` for setting up the development environment, but it's in my plan to learn it. The next step after mastering GraphQL is to start reading and learning about ``Docker and Kubernetes``. I tried to learn it before but there were some priorities that prevented me from learning it.
 
 
