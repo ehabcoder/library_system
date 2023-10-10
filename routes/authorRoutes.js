@@ -8,7 +8,7 @@ import {
   createAuthor,
   updateAuthor,
   assignBookToAuthor,
-  deleteBookFromUser,
+  deleteBookFromAuthor,
   uploadAuthorAvatar,
   deleteAuthorAvatar,
   getAuthorAvatar,
@@ -35,7 +35,7 @@ router.put("/:id", protect, admin, updateAuthor);
 router.post("/addBook", protect, admin, assignBookToAuthor);
 
 // remove book from author
-router.post("/deleteBook", protect, admin, deleteBookFromUser);
+router.post("/deleteBook", protect, admin, deleteBookFromAuthor);
 
 // // Upload Author Avatar
 router.post(

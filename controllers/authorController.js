@@ -4,20 +4,19 @@ import Book from "../models/BookModel.js";
 import mongoose from "mongoose";
 import sharp from "sharp";
 
-// @desc   Fetch all authors
-// @route  GET /api/authors
-// @access Public
 /* 
    ######### NOTE:// I used pagination here ###################
    ######### NOTE:// I also used search here ##################
    It depends on if the user entered a specific query parameters
    in the URL (keyword) if he add it to the url the function
    will return the result after searching about this keyword
-   also I implemented pagination here
-   and note that I used another way to impolement pagination in 
-   the Book controller. 
-   way to implement 
+   also I implemented pagination here.
 */
+//    @desc   Fetch all authors
+//    @route  GET /api/authors
+// or @route GET /api/authors?keyword=Harry // for searching with author name
+// or @route GET /api/authors?pageNumber=2 // for Pagination
+//    @access Public
 const getAuthors = asyncHandler(async (req, res) => {
   // we can change the number of page size it if we want.
   const pageSize = 3;
@@ -39,7 +38,7 @@ const getAuthors = asyncHandler(async (req, res) => {
   const authors = await Author.find(keyword)
     .limit(pageSize)
     .skip(pageSize * (page - 1))
-    .populate("books"); // to pupulate all books for that user
+    .populate("books"); // to pupulate all books for that author
 
   // return the page and pages so the frontend developer can
   // handle the pagination in the UI.
@@ -131,7 +130,7 @@ const assignBookToAuthor = asyncHandler(async (req, res) => {
 // @desc   Delete a book from an Author
 // @route  PUT /api/authors/deleteBook
 // @access Private/Admin
-const deleteBookFromUser = asyncHandler(async (req, res) => {
+const deleteBookFromAuthor = asyncHandler(async (req, res) => {
   const { bookId, authorId } = req.body;
   const book = await Book.findById(bookId);
   const author = await Author.findById(authorId);
@@ -201,7 +200,7 @@ export {
   createAuthor,
   updateAuthor,
   assignBookToAuthor,
-  deleteBookFromUser,
+  deleteBookFromAuthor,
   uploadAuthorAvatar,
   deleteAuthorAvatar,
   getAuthorAvatar,

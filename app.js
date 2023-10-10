@@ -6,7 +6,7 @@ import morgan from "morgan";
 
 import userRoutes from "./routes/userRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
-// import authorRoutes from "./routes/authorRoutes.js";
+import bookRoutes from "./routes/bookRoutes.js";
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
 config();
@@ -28,6 +28,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/authors", authorRoutes);
+app.use("/api/books", bookRoutes);
 
 // Error Handling middlewares
 app.use(notFound, errorHandler);
