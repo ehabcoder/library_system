@@ -32,9 +32,7 @@ const bookSchema = mongoose.Schema(
     image: {
       type: Buffer,
     },
-    review: {
-      reviewSchema,
-    },
+    reviews: [reviewSchema],
     rating: {
       type: Number,
       required: true,

@@ -4,6 +4,8 @@ import upload from "../utils/fileUploading.js";
 import {
   getBooks,
   getBookById,
+  createBookReview,
+  getTopBooks,
   deleteBook,
   createBook,
   updateBook,
@@ -23,7 +25,13 @@ const router = new express.Router();
 // GET ?pageNumber=numberOfThePageTheYouWant
 router.get("/", getBooks);
 
+// Get Top Rated Books
+router.get("/top", getTopBooks);
+
 router.get("/:id", getBookById);
+
+// Book Reviews
+router.post("/:id/reviews", protect, createBookReview);
 
 router.delete("/:id", protect, admin, deleteBook);
 

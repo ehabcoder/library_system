@@ -51,9 +51,9 @@ const getUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// // @desc   Update user profile
-// // @route  PATCH /api/users/profile
-// // @access Private
+// @desc   Update user profile
+// @route  PATCH /api/users/profile
+// @access Private
 const updateUserProfile = asyncHandler(async (req, res) => {
   const updates = Object.keys(req.body);
   if (!req.user.isAdmin) {
@@ -86,9 +86,9 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   }
 });
 
-// // @desc   Get all users
-// // @route  GET /api/users
-// // @access Private/Admin
+// @desc   Get all users
+// @route  GET /api/users
+// @access Private/Admin
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({});
   res.json(users);
@@ -108,9 +108,9 @@ const deleteUser = asyncHandler(async (req, res) => {
   }
 });
 
-// // @desc   Get user by ID
-// // @route  GET /api/users/:id
-// // @access Private/Admin
+// @desc   Get user by ID
+// @route  GET /api/users/:id
+// @access Private/Admin
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).select("-password");
   if (user) {

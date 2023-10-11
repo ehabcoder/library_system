@@ -8,7 +8,6 @@ import sharp from "sharp";
 //    @route GET /api/books
 // or @route GET /api/books?keyword=harry Poter   // for searching with title
 // or @route GET /api/books?pageNumber=2    // for pagination
-
 const getBooks = asyncHandler(async (req, res) => {
   // we can change the number of page size it if we want.
   const pageSize = 3;
@@ -48,6 +47,51 @@ const getBookById = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error("Book not found");
   }
+});
+
+// @desc   Create Book Review
+// @route  POST /api/books/:id/reviews
+// @access Private
+const createBookReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const book = await Book.findById(req.params.id);
+  if (book) {
+    console.log(book);
+    const alreadyReviewd = book.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewd) {
+      res.status(400);
+      throw new Error("Book already reviewed");
+    }
+    console.log(req.user);
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    book.reviews.push(review);
+    book.numReviews = book.reviews.length;
+    book.rating =
+      book.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      book.reviews.length; // sum of ratings / sum of reviews
+    await book.save();
+    res.status(201).json({ message: "Review added." });
+  } else {
+    res.status(404);
+    throw new Error("Book not found.");
+  }
+});
+
+// @desc   Get top rated books
+// @route  /api/books/top
+// @access Private
+const getTopBooks = asyncHandler(async (req, res) => {
+  // -1 to be sorted in ascending order
+  const books = await Book.find({}).sort({ rating: -1 }).limit(3); // Get just the first 3 but you can chnage the limit of it.
+  console.log(books);
+  res.json(books);
 });
 
 // @desc   Delete a Book
@@ -192,6 +236,8 @@ const getbookImage = asyncHandler(async (req, res) => {
 export {
   getBooks,
   getBookById,
+  createBookReview,
+  getTopBooks,
   deleteBook,
   createBook,
   updateBook,

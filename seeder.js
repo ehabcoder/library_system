@@ -38,6 +38,7 @@ const importData = async () => {
         name: `${faker.person.firstName()} ${faker.person.lastName()}`,
         bio: faker.person.bio(),
         books: [],
+        reviews: [],
       });
       books.push({
         id: new mongoose.Types.ObjectId(i),
@@ -45,11 +46,11 @@ const importData = async () => {
         publicationDate: faker.date.anytime(),
         description: faker.company.catchPhraseDescriptor(),
         genre: faker.music.genre(),
+        reviews: [],
         rating: faker.number.float(0.2),
         authors: [],
       });
     }
-    console.log(books[0]);
     // Assign some books to authors
     authors[0]["books"].push(books[0].id);
     authors[0]["books"].push(books[1].id);
