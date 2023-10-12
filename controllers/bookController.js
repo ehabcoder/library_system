@@ -56,7 +56,6 @@ const createBookReview = asyncHandler(async (req, res) => {
   const { rating, comment } = req.body;
   const book = await Book.findById(req.params.id);
   if (book) {
-    console.log(book);
     const alreadyReviewd = book.reviews.find(
       (r) => r.user.toString() === req.user._id.toString()
     );
@@ -64,7 +63,6 @@ const createBookReview = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Book already reviewed");
     }
-    console.log(req.user);
     const review = {
       name: req.user.name,
       rating: Number(rating),
@@ -90,7 +88,6 @@ const createBookReview = asyncHandler(async (req, res) => {
 const getTopBooks = asyncHandler(async (req, res) => {
   // -1 to be sorted in ascending order
   const books = await Book.find({}).sort({ rating: -1 }).limit(3); // Get just the first 3 but you can chnage the limit of it.
-  console.log(books);
   res.json(books);
 });
 

@@ -4,6 +4,8 @@ import upload from "../utils/fileUploading.js";
 import {
   getAuthors,
   getAuthorById,
+  createAuthorReview,
+  getTopAuthors,
   deleteAuthor,
   createAuthor,
   updateAuthor,
@@ -22,6 +24,12 @@ const router = new express.Router();
 // GET ?keyword=AnyStringToSearch
 // GET ?pageNumber=numberOfThePageTheYouWant
 router.get("/", getAuthors);
+
+// Get Top Rated Authors
+router.get("/top", getTopAuthors);
+
+// Author Reviews
+router.post("/:id/reviews", protect, createAuthorReview);
 
 router.get("/:id", getAuthorById);
 

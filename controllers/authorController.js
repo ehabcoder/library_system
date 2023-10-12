@@ -61,6 +61,48 @@ const getAuthorById = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc   Create Author Review
+// @route  POST /api/authors/:id/reviews
+// @access Private
+const createAuthorReview = asyncHandler(async (req, res) => {
+  const { rating, comment } = req.body;
+  const author = await Author.findById(req.params.id);
+  if (author) {
+    const alreadyReviewd = author.reviews.find(
+      (r) => r.user.toString() === req.user._id.toString()
+    );
+    if (alreadyReviewd) {
+      res.status(400);
+      throw new Error("Author already reviewed");
+    }
+    const review = {
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+      user: req.user._id,
+    };
+    author.reviews.push(review);
+    author.numReviews = author.reviews.length;
+    author.rating =
+      author.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      author.reviews.length; // sum of ratings / sum of reviews
+    await author.save();
+    res.status(201).json({ message: "Review added." });
+  } else {
+    res.status(404);
+    throw new Error("Author not found.");
+  }
+});
+
+// @desc   Get top rated Author
+// @route  /api/authors/top
+// @access Private
+const getTopAuthors = asyncHandler(async (req, res) => {
+  // -1 to be sorted in ascending order
+  const authors = await Author.find({}).sort({ rating: -1 }).limit(3); // Get just the first 3 but you can chnage the limit of it.
+  res.json(authors);
+});
+
 // @desc   Delete an Author
 // @route  DELETE /api/authors/:id
 // @access Private/Admin
@@ -196,6 +238,8 @@ const getAuthorAvatar = asyncHandler(async (req, res) => {
 export {
   getAuthors,
   getAuthorById,
+  createAuthorReview,
+  getTopAuthors,
   deleteAuthor,
   createAuthor,
   updateAuthor,
