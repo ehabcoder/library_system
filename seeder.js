@@ -46,6 +46,7 @@ const importData = async () => {
         publicationDate: faker.date.anytime(),
         description: faker.company.catchPhraseDescriptor(),
         genre: faker.music.genre(),
+        image: "",
         reviews: [],
         rating: faker.number.float(0.2),
         authors: [],
